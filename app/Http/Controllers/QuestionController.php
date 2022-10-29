@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Question;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 
@@ -15,17 +17,27 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::all()->random();
-        $currentQuestion = $questions->pop('1');
-        $correctAnswer = $currentQuestion->pluck('answer');
-        $wrongAnswers = $questions->pluck('answer')->take(3);
-        $answers = $correctAnswer->merge($wrongAnswers)->shuffle();
+        $questions = Question::with('category')->get();
 
-        return view('index', [
-            'questions' => $currentQuestion,
-            'answers' => $answers,
+        return view('questions.index', [
+            'questions' => $questions,
         ]);
     }
+
+
+    // public function index()
+    // {
+    //     $questions = Question::all()->random();
+    //     $currentQuestion = $questions->pop('1');
+    //     $correctAnswer = $currentQuestion->pluck('answer');
+    //     $wrongAnswers = $questions->pluck('answer')->take(3);
+    //     $answers = $correctAnswer->merge($wrongAnswers)->shuffle();
+
+    //     return view('index', [
+    //         'questions' => $currentQuestion,
+    //         'answers' => $answers,
+    //     ]);
+    // }
 
     // public function index()
     // {
@@ -58,7 +70,11 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        
+        return view('questions.create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -67,9 +83,16 @@ class QuestionController extends Controller
      * @param  \App\Http\Requests\StoreQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreQuestionRequest $request)
+    public function store(Request $request)
     {
-        //
+        $question = $request->validate([
+            'text'=> 'required',
+            'category_id'=> 'required',
+        ]);
+
+        Question::create($question);
+
+        return redirect('/questions');
     }
 
     /**
@@ -80,7 +103,9 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return view('questions.show', [
+            'question' => $question
+        ]);
     }
 
     /**
@@ -91,7 +116,12 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        $categories = Category::all();
+
+        return view('questions.edit', [
+            'question' => $question,
+            'categories' => $categories,
+        ]);    
     }
 
     /**
@@ -101,9 +131,16 @@ class QuestionController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateQuestionRequest $request, Question $question)
+    public function update(Request $request, Question $question)
     {
-        //
+        $updatedQuestion = $request->validate([
+            'text'=> 'required',
+            'category_id'=> 'required',
+        ]);
+
+        $question->update($updatedQuestion);
+
+        return redirect('/questions');
     }
 
     /**
@@ -114,6 +151,7 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return redirect('/questions');   
     }
 }

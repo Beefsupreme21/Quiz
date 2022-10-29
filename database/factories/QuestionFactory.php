@@ -17,8 +17,7 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            'question' => fake()->sentence(),
-            'answer' => fake()->word(),
+            'text' => fake()->sentence(),
             'created_at' => now(),
         ];
     }
