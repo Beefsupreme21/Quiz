@@ -9,19 +9,25 @@
 <?php $component->withAttributes([]); ?>
     <div class="border border-gray-500 w-1/3 mt-6 mx-auto py-4 px-8">
         <div class="text-center">
-            <h1 class="text-4xl mb-4">Add New Game</h1>
+            <h1 class="text-4xl mb-4">Questions</h1>
+            <a href="/questions/create" class="hover:underline"><button class="bg-gray-900 border border-gray-700 mb-6 px-2 py-1 hover:bg-gray-700 hover:underline">Add New Question</button></a>
+        </div>
+        <div class="flex justify-between border-b border-gray-700 text-xl pb-2 mb-2">
+            <p>Question</p>
+            <p>Category</p>
+        </div>
+        <?php $__currentLoopData = $questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="flex justify-between">
+
+            <a href="/questions/<?php echo e($question->id); ?>">
+                <p class="hover:underline"><?php echo e($question->text); ?></p>
+            </a>
+            <a href="/questions/<?php echo e($question->id); ?>">
+                <p class="hover:underline"><?php echo e($question->category->name); ?></p>
+            </a>
         </div>
 
-        <div>
-            <form action="/categories" method="POST">
-                <?php echo csrf_field(); ?>
-                <div class="mb-2">
-                    <label>Name</label>
-                    <input type="text" name="name" class="border border-black bg-gray-800">
-                </div>
-                <input type="submit" value="Submit" class="border border-black bg-gray-500 p-2">
-            </form> 
-        </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
  <?php echo $__env->renderComponent(); ?>
@@ -29,4 +35,4 @@
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?><?php /**PATH C:\xampp\Projects\Quiz\resources\views/categories/create.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\xampp\Projects\Quiz\resources\views/questions/index.blade.php ENDPATH**/ ?>

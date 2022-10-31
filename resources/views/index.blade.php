@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-    <head>
-        <title>Laravel</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="//unpkg.com/alpinejs" defer></script>
-    </head>
+<x-layout>
 
     <body class="w-2/3 mx-auto mt-24 bg-black">
         <div x-data="game()">
@@ -64,4 +59,4 @@
 
     </body>
     
-</html>
+</x-layout>

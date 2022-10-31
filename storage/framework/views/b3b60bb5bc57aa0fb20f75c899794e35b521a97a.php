@@ -7,36 +7,34 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <div>
-        <a href="/categories/<?php echo e($category->name); ?>">
-            <button class="text-blue-500 hover:underline">
-                <?php echo e($category->name); ?></p>
-            </button>
-        </a>
-    </div>
-    <div class="mb-2">
-        <a href="/categories/<?php echo e($category->name); ?>/edit">
-            <button class="text-cyan-600 hover:underline pr-3">
-                Edit
-            </button>
-        </a>
-    </div>
+    <div class="border border-gray-500 w-1/3 mt-6 mx-auto py-4 px-8">
+        <div class="text-center">
+            <h1 class="text-4xl mb-4"><?php echo e($category->name); ?></h1>
+        </div>
+        <div class="flex justify-between text-xl pb-2">
+            <a href="/categories/<?php echo e($category->name); ?>/edit">
+                <button class="bg-gray-900 border border-gray-700 px-2 py-1 hover:bg-gray-700 hover:underline">Edit</button>
+            </a>
+            <form method="POST" action="/categories/<?php echo e($category->name); ?>">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('DELETE'); ?>                
+                <button class="bg-gray-900 border border-gray-700 px-2 py-1 hover:bg-gray-700 hover:underline">
+                    Delete
+                </button>
+            </form>
+        </div>
 
-    <form method="POST" action="/categories/<?php echo e($category->name); ?>">
-        <?php echo csrf_field(); ?>
-        <?php echo method_field('DELETE'); ?>
-        <button class="text-red-500 hover:underline">
-            Delete
-        </button>
-    </form>
+        <div>
+            <h1 class="text-2xl mb-4">Questions</h1>
+        </div>
+        <?php $__currentLoopData = $category->questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <p><?php echo e($question->text); ?></p>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-
-
-
-
 <?php /**PATH C:\xampp\Projects\Quiz\resources\views/categories/show.blade.php ENDPATH**/ ?>

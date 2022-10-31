@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuestionController;
 
@@ -32,3 +33,6 @@ Route::get('/categories/{category:name}/edit', [CategoryController::class, 'edit
 Route::put('/categories/{category:name}', [CategoryController::class, 'update']);
 Route::delete('/categories/{category:name}', [CategoryController::class, 'destroy']);
 Route::get('/categories/{category:name}', [CategoryController::class, 'show']);
+
+Route::resources(['/questions' => QuestionController::class,]);
+Route::resources(['/answers' => AnswerController::class,]);
