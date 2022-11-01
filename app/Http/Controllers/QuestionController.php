@@ -64,11 +64,7 @@ class QuestionController extends Controller
     //     }
     // }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $categories = Category::all();
@@ -78,12 +74,6 @@ class QuestionController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreQuestionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $question = $request->validate([
@@ -96,12 +86,6 @@ class QuestionController extends Controller
         return redirect('/questions');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
-     */
     public function show(Question $question)
     {
         return view('questions.show', [
@@ -109,12 +93,6 @@ class QuestionController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Question $question)
     {
         $categories = Category::all();
@@ -125,13 +103,6 @@ class QuestionController extends Controller
         ]);    
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateQuestionRequest  $request
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Question $question)
     {
         $updatedQuestion = $request->validate([
@@ -144,12 +115,6 @@ class QuestionController extends Controller
         return redirect('/questions');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Question $question)
     {
         $question->delete();
