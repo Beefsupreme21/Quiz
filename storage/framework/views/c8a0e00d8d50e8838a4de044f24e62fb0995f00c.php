@@ -21,7 +21,8 @@
                         <li class="hover:underline mr-8"><a href="/categories">Categories</a></li>
                         <li class="hover:underline mr-8"><a href="/questions">Questions</a></li>
                         <li class="hover:underline mr-8"><a href="/answers">Answers</a></li>
-                        <li class="hover:underline"><a href="/stats">#</a></li>
+                        <li class="hover:underline mr-8"><a href="/users">Users</a></li>
+                        <li class="hover:underline"><a href="/quizzes">Quizzes</a></li>
                     </ul>
                 </div>
             </nav>

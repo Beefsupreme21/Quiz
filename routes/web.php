@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuestionController;
@@ -36,3 +38,5 @@ Route::get('/categories/{category:name}', [CategoryController::class, 'show']);
 
 Route::resources(['/questions' => QuestionController::class,]);
 Route::resources(['/answers' => AnswerController::class,]);
+Route::resources(['/users' => UserController::class,]);
+Route::resources(['/quizzes' => QuizController::class,]);
