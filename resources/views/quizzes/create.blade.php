@@ -5,10 +5,9 @@
         </div>
         <form action="/quizzes" method="POST">
             @csrf
-            <div class="text-center">
+            <div class="mb-2">
                 <label class="mr-2 text-lg">Name</label>
                 <input type="text" name="name" class="border border-black bg-gray-800 px-2 py-1 outline-none" value="">
-                <input type="submit" value="Submit" class="border border-black bg-gray-500 px-2 py-1">
             </div>
             <div class="mb-2">
                 <label class="mr-2 text-lg">Select Category</label>
@@ -18,6 +17,15 @@
                     @endforeach
                 </select>              
             </div>
+            <div class="mb-2">
+                <label class="mr-2 text-lg">Select User</label>
+                <select name="user_id" class="border border-black bg-gray-800 px-2 py-1 outline-none">
+                    @foreach ($users as $user)
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                    @endforeach
+                </select>              
+            </div>
+            <input type="submit" value="Submit" class="border border-black bg-gray-500 px-2 py-1">
         </form> 
     </div>
 </x-layout>

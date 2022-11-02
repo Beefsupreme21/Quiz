@@ -6,12 +6,16 @@
         </div>
         <div class="flex justify-between border-b border-gray-700 text-xl pb-2 mb-2">
             <p>Name</p>
+            <p>Category</p>
+            <p>Created by</p>
         </div>
         @foreach ($quizzes as $quiz)
         <div class="flex justify-between">
             <a href="/quizzes/{{ $quiz->id }}" class="hover:underline">
                 <p>{{ $quiz->name }}</p>
             </a>
+            <p>{{ $quiz->category->name }}</p>
+            <p>{{ $quiz->user->name }}</p>
         </div>
         @endforeach
     </div>

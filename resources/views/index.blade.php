@@ -43,7 +43,7 @@
 
                 <template x-for='answer in answers'>
                     <div class="bg-yellow-500 rounded-lg min-h-[100px]">
-                        <button x-text="answer.answer" @click="checkAnswer(answer)">Hi</button>
+                        <button x-text="answer.answer" x-click="checkAnswer(answer)">Hi</button>
                     </div>
                 </template>
                 

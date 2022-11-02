@@ -9,27 +9,25 @@
 <?php $component->withAttributes([]); ?>
     <div class="border border-gray-500 w-1/3 mt-6 mx-auto py-4 px-8">
         <div class="text-center">
-            <h1 class="text-4xl mb-4">Quizzes</h1>
-            <a href="/quizzes/create"><button class="bg-gray-900 border border-gray-700 mb-6 px-2 py-1 hover:bg-gray-700 hover:underline">Add New Quiz</button></a>
+            <h1 class="text-4xl mb-4">Quiz #<?php echo e($quiz->id); ?></h1>
         </div>
-        <div class="flex justify-between border-b border-gray-700 text-xl pb-2 mb-2">
-            <p>Name</p>
-            <p>Category</p>
-            <p>Created by</p>
-        </div>
-        <?php $__currentLoopData = $quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="flex justify-between">
-            <a href="/quizzes/<?php echo e($quiz->id); ?>" class="hover:underline">
-                <p><?php echo e($quiz->name); ?></p>
+        <div class="flex justify-between text-xl pb-2">
+            <a href="/quizzes/<?php echo e($quiz->id); ?>/edit">
+                <button class="bg-gray-900 border border-gray-700 px-2 py-1 hover:bg-gray-700 hover:underline">Edit</button>
             </a>
-            <p><?php echo e($quiz->category->name); ?></p>
-            <p><?php echo e($quiz->user->name); ?></p>
+            <form method="POST" action="/quizzes/<?php echo e($quiz->id); ?>">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('DELETE'); ?>                
+                <button class="bg-gray-900 border border-gray-700 px-2 py-1 hover:bg-gray-700 hover:underline">
+                    Delete
+                </button>
+            </form>
         </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?><?php /**PATH C:\xampp\Projects\Quiz\resources\views/quizzes/index.blade.php ENDPATH**/ ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\Projects\Quiz\resources\views/quizzes/show.blade.php ENDPATH**/ ?>

@@ -13,7 +13,6 @@
 
     <body class="bg-black text-white">
         <header class="bg-gray-800 py-6">
-
             <nav>
                 <div class="flex items-center">
                     <ul class="flex">
@@ -22,15 +21,14 @@
                         <li class="hover:underline mr-8"><a href="/questions">Questions</a></li>
                         <li class="hover:underline mr-8"><a href="/answers">Answers</a></li>
                         <li class="hover:underline mr-8"><a href="/users">Users</a></li>
-                        <li class="hover:underline"><a href="/quizzes">Quizzes</a></li>
+                        <li class="hover:underline mr-8"><a href="/quizzes">Quizzes</a></li>
+                        <li class="hover:underline"><a href="/play">Play</a></li>
                     </ul>
                 </div>
             </nav>
-
         </header>
         <div class="min-h-screen">
             {{ $slot }}
         </div>
     </body>
-
 </html>

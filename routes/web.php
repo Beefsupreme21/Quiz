@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlayController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnswerController;
@@ -20,10 +21,10 @@ use App\Http\Controllers\QuestionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::get('/quiz', [QuestionController::class, 'index']);
+Route::get('/play', [PlayController::class, 'index']);
 
 // Route::get('/{question}/{id}', [QuestionController::class, 'checkAnswer']);
 

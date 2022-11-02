@@ -20,14 +20,27 @@
             </div>
             <div class="mb-2">
                 <label class="mr-2 text-lg">Is Correct?</label>
-                <input type="checkbox" name="is_correct" value="1">
+                <input type="checkbox" name="is_correct" value="1"
+                <?php if( $answer->is_correct == 1): ?>
+                " checked>
+                <?php else: ?>
+                ">
+                <?php endif; ?>
             </div>
 
             <div class="mb-2">
                 <label class="mr-2 text-lg">Select Category</label>
                 <select name="category_id" class="border border-black bg-gray-800 px-2 py-1 outline-none">
                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                    <option value="<?php echo e($category->id); ?>"
+                        <?php if($category->id == $answer->question->category->id): ?>
+                        " selected>
+                        <?php else: ?>
+                        ">
+                        <?php endif; ?>
+                        <?php echo e($category->name); ?>
+
+                    </option>                    
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>              
             </div>
@@ -36,7 +49,15 @@
                 <label class="mr-2 text-lg">Select Question</label>
                 <select name="question_id" class="border border-black bg-gray-800 px-2 py-1 outline-none">
                     <?php $__currentLoopData = $questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($question->id); ?>"><?php echo e($question->text); ?></option>
+                    <option value="<?php echo e($category->id); ?>"
+                        <?php if($question->id == $answer->question->id): ?>
+                        " selected>
+                        <?php else: ?>
+                        ">
+                        <?php endif; ?>
+                        <?php echo e($question->text); ?>
+
+                    </option>                    
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>              
             </div>
