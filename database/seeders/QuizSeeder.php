@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Quiz;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class QuizSeeder extends Seeder
 {
@@ -14,6 +15,22 @@ class QuizSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Quiz::factory()->create([
+            'name' => 'Quiz 1',
+            'category_id' => '1',
+            'user_id' => '2',
+        ]);
+
+        Quiz::factory()->create([
+            'name' => 'Pokemon Type Quiz',
+            'category_id' => '1',
+            'user_id' => '1',
+        ]);
+
+        Quiz::factory()->create([
+            'name' => 'Trivia Quiz',
+            'category_id' => '2',
+            'user_id' => '3',
+        ]);
     }
 }

@@ -18,9 +18,10 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             QuestionSeeder::class,
             AnswerSeeder::class,
+            QuizSeeder::class,
         ]);
 
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

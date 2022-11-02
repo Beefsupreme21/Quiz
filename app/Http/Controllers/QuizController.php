@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreQuizRequest;
-use App\Http\Requests\UpdateQuizRequest;
+use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
     public function index()
-    {
-        $quizzes = Quiz::all();
+    {        
+        $quizzes = Quiz::with(['category', 'user'])->get();
 
         return view('quizzes.index', [
             'quizzes' => $quizzes,
@@ -22,9 +22,11 @@ class QuizController extends Controller
     public function create()
     {
         $categories = Category::all();
-        
+        $users = User::all();
+
         return view('quizzes.create', [
             'categories' => $categories,
+            'users' => $users,
         ]);
     }
 
@@ -32,6 +34,9 @@ class QuizController extends Controller
     {
         $quiz = $request->validate([
             'name'=> 'required',
+            'category_id'=> 'required',
+            'user_id'=> 'required',
+
         ]);
 
         Quiz::create($quiz);
@@ -48,8 +53,13 @@ class QuizController extends Controller
 
     public function edit(Quiz $quiz)
     {
+        $categories = Category::all();
+        $users = User::all();
+
         return view('quizzes.edit', [
             'quiz' => $quiz,
+            'categories' => $categories,
+            'users' => $users,
         ]);        
     }
 
@@ -57,10 +67,12 @@ class QuizController extends Controller
     {
         $updatedQuiz = $request->validate([
             'name'=> 'required',
+            'category_id'=> 'required',
+            'user_id'=> 'required',
+
         ]);
 
         $quiz->update($updatedQuiz);
-
         return redirect('/quizzes');
     }
 
