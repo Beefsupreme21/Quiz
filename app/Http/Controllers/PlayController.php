@@ -3,57 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Models\Play;
+use App\Models\Quiz;
+use App\Models\Category;
 use App\Models\Question;
 use App\Http\Requests\StorePlayRequest;
 use App\Http\Requests\UpdatePlayRequest;
 
 class PlayController extends Controller
 {
-    public function index()
+    public function play(Quiz $quiz)
     {
-        $questions = Question::all()->random();
-
         return view('play', [
-            'questions' => $questions,
+            'quiz' => $quiz,
         ]);
     }
 
+    public function show(Category $category)
+    {
+        // $category = Category::with('questions.answers')->get();
+        return view('categories.show', [
+            'category' => $category
+        ]);
+    }
 
-    // public function index()
-    // {
-    //     $questions = Question::all()->random();
-    //     $currentQuestion = $questions->pop('1');
-    //     $correctAnswer = $currentQuestion->pluck('answer');
-    //     $wrongAnswers = $questions->pluck('answer')->take(3);
-    //     $answers = $correctAnswer->merge($wrongAnswers)->shuffle();
-
-    //     return view('index', [
-    //         'questions' => $currentQuestion,
-    //         'answers' => $answers,
-    //     ]);
-    // }
-
-    // public function index()
-    // {
-    //     $questions = Question::all()->random();
-    //     $currentQuestion = $questions->pop('1');
-    //     $correctAnswer = $currentQuestion->pluck('answer');
-    //     $wrongAnswers = $questions->pluck('answer')->take(3);
-    //     $answers = $correctAnswer->merge($wrongAnswers)->shuffle();
-
-    //     return view('index', [
-    //         'questions' => $currentQuestion,
-    //         'answers' => $answers,
-    //     ]);
-    // }
-
-    // public function checkAnswer(Question $question, $id)
-    // {
-    //     if ($question->answer == $id) {
-    //         return back()->with('message', 'Correct!');
-    //     }
-    //     else {
-    //         return "Incorrect";
-    //     }
-    // }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// public function index()
+// {
+//     $questions = Question::with('answers')->get();
+//     $currentQuestion = $questions->pop(1);
+//     $correctAnswer = $currentQuestion->pluck('answer');
+//     $wrongAnswers = $questions->pluck('answer')->take(3);
+//     $answers = $correctAnswer->merge($wrongAnswers)->shuffle();
+    
+//     return view('play', [
+//         'questions' => $currentQuestion,
+//         'answers' => $answers,
+//     ]);
+// }

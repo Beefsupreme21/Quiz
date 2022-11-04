@@ -26,16 +26,6 @@ class QuestionSeeder extends Seeder
         ]);
 
         Question::factory()->create([
-            'category_id' => '1',
-            'text' => 'Which Pokemon is a flying type?',
-        ]);
-
-        Question::factory()->create([
-            'category_id' => '1',
-            'text' => 'Which Pokemon is a bug type?',
-        ]);
-
-        Question::factory()->create([
             'category_id' => '2',
             'text' => 'Which actor starred in Pineapple Express?',
         ]);

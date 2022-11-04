@@ -22,13 +22,5 @@ class CategorySeeder extends Seeder
         Category::factory()->create([
             'name' => 'Movies',
         ]);
-
-        Category::factory()->create([
-            'name' => 'Harry Potter',
-        ]);
-
-        Category::factory()->create([
-            'name' => 'Methods()',
-        ]);
     }
 }
