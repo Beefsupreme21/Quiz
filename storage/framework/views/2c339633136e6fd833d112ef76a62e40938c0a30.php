@@ -28,8 +28,6 @@
         </div>
 
     </body>
-
-    
     
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>

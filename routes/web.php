@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayController;
@@ -20,11 +21,22 @@ use App\Http\Controllers\QuestionController;
 |
 */
 
+// Route::get('/', function () {
+//     return view('home');
+// });
+
 Route::get('/', function () {
-    return view('home');
+    $categories = Category::all();
+
+    return view('memory', [
+        'categories' => $categories,
+    ]);
 });
 
-Route::get('/play', [PlayController::class, 'index']);
+Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
+
+
+// Route::get('/play/{$id}', [PlayController::class, 'index']);
 
 // Route::get('/{question}/{id}', [QuestionController::class, 'checkAnswer']);
 

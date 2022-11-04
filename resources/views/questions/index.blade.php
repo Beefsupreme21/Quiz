@@ -10,7 +10,6 @@
         </div>
         @foreach ($questions as $question)
         <div class="flex justify-between">
-
             <a href="/questions/{{ $question->id }}">
                 <p class="hover:underline">{{ $question->text }}</p>
             </a>
@@ -18,8 +17,6 @@
                 <p class="hover:underline">{{ $question->category->name }}</p>
             </a>
         </div>
-
         @endforeach
     </div>
-
 </x-layout>

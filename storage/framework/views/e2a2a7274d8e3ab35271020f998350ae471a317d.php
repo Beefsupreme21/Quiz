@@ -7,7 +7,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <div class="border border-gray-500 w-1/3 mt-6 mx-auto p-4">
+    <div class="border border-gray-500 w-1/2 mt-6 mx-auto p-4">
         <div class="text-center">
             <h1 class="text-4xl mb-4">Answers</h1>
             <a href="/answers/create"><button class="bg-gray-900 border border-gray-700 mb-6 px-2 py-1 hover:bg-gray-700 hover:underline">Add New Answer</button></a>
@@ -23,20 +23,20 @@
             <?php $__currentLoopData = $answers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $answer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tbody>
                 <tr>
-                    <td class="p-4">
+                    <td class="px-4">
                         <a href="/answers/<?php echo e($answer->id); ?>">
                             <p class="hover:underline"><?php echo e($answer->text); ?></p>
                         </a>
                     </td>
-                    <td class="p-4">
+                    <td class="px-4">
                         <a href="/answers/<?php echo e($answer->id); ?>">
                             <p class="hover:underline"><?php echo e($answer->question->text); ?></p>
                         </a>
                     </td>
                     <?php if( $answer->is_correct == 0): ?>
-                    <td class="p-4">Incorrect</td>
+                    <td class="px-4">Incorrect</td>
                     <?php else: ?>
-                    <td class="p-4">Correct</td>
+                    <td class="px-4">Correct</td>
                     <?php endif; ?>
                 </tr>
             </tbody>

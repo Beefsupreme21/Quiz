@@ -18,7 +18,6 @@
         </div>
         <?php $__currentLoopData = $questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="flex justify-between">
-
             <a href="/questions/<?php echo e($question->id); ?>">
                 <p class="hover:underline"><?php echo e($question->text); ?></p>
             </a>
@@ -26,10 +25,8 @@
                 <p class="hover:underline"><?php echo e($question->category->name); ?></p>
             </a>
         </div>
-
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
-
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>

@@ -17,38 +17,3 @@
         </div>
     </div>
 </x-layout>
-
-
-
-
-{{-- <div x-data="quiz">
-    <template x-for="question in questions">
-        <p x-text="question.question"></p>
-        <template x-for="answer in question.answers">
-            <button @click="addAnswer(question.id, answer.id)" x-text="answer.text"></button>
-        </template>
-    </template>
-    <template x-if="answers.length === questions.length">
-        <button @click="save">Save</button>
-    </template>
-</div>
-
-<script>
-
-Alpine.data('quiz', () => ({
-    questions: {{ $category->questions }},
-    answers: [],
-
-    addAnswer(questionId, answerId) {
-        this.answers.push({
-            question_id: questionId,
-            answer_id: answerId,
-        })
-    },
-
-    save() {
-        console.log(this.answers);
-    }
-}))
-
-</script> --}}

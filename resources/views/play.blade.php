@@ -1,73 +1,148 @@
 <x-layout>
-    <div x-data="game()" class="px-10 flex items-center justify-center min-h-screen text-black">
-        <div class="flex-1 grid grid-cols-2 gap-10">
-            <template x-for="card in cards">
-                <div :style="'background: ' + card.color" 
+    <div x-data="game">
+        <div x-data="{ quiz: {{ $quiz->category }}, questions: {{ $quiz->category->questions }} }">
+            <div>{{ $quiz->category->name }}</div>
+            <div>{{ $quiz->name }}</div>
+
+            <button @click="toggle">Toggle Answers</button>
+
+            <div>
+                <template x-for="question in questions">
+                    <div x-text="question.text" class="h-32 cursor-pointer"></div>
+                </template>
+                <template x-for="answer in question.answers">
+                    <div x-text="answer.text" class="h-32 cursor-pointer"></div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('game', () => ({
+                open: false,
+                answers: [],
+     
+                toggle() {
+                    this.open = ! this.open
+                },
+            }))
+        })
+    </script>
+</x-layout>
+
+
+
+
+{{-- <x-layout>
+    <div x-data="game" class="text-white">
+        {{ $category->name }}
+        <div class="px-10 flex items-center justify-center min-h-screen text-black">
+            <div class="flex-1 grid grid-cols-2 gap-10">
+                <template x-for="card in cards">
+                    <div :style="'background: ' + card.color" 
+                        x-text="card.color"
+                        class="h-32 cursor-pointer" 
+                        @click="checkAnswer(card)"
+                    >
+                    </div>
+                </template> 
+            </div>
+        </div>
+        <div class="px-10">
+            <template x-for="text in questions">
+                <div 
+                    x-text="text"
                     class="h-32 cursor-pointer" 
-                    @click="checkAnswer(card)"
                 >
                 </div>
             </template>
         </div>
-    </div>
+    </div> --}}
 
-    @foreach ($questions as $question) 
-        {{ $question->text }}
-    @endforeach
 
-    <script>
-        function game() {
-            return {
+     
+    {{-- <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('game', () => ({
                 cards: [
                     { color: 'blue', selected: false, is_correct: true },
                     { color: 'yellow', selected: false, is_correct: false },
                     { color: 'purple', selected: false, is_correct: false },
                     { color: 'cyan', selected: false, is_correct: false },                
                 ],
-
+                
                 checkAnswer(card) {
                     if (card.is_correct == true) {
+                        card.selected = true
                         card.color = 'green'
                     }
                     else {
                         card.color = 'red'
                     }
-                }
-            }
-        };
+                }, 
+            }))
+        });
     </script>
-
-</x-layout>
-
+</x-layout> --}}
 
 
 
 
 
+{{-- <div x-data="quiz">
+    <template x-for="question in questions">
+        <p x-text="question.question"></p>
+        <template x-for="answer in question.answers">
+            <button @click="addAnswer(question.id, answer.id)" x-text="answer.text"></button>
+        </template>
+    </template>
+    <template x-if="answers.length === questions.length">
+        <button @click="save">Save</button>
+    </template>
+</div>
+
+<script>
+
+Alpine.data('quiz', () => ({
+    questions: {{ $category->questions }},
+    answers: [],
+
+    addAnswer(questionId, answerId) {
+        this.answers.push({
+            question_id: questionId,
+            answer_id: answerId,
+        })
+    },
+
+    save() {
+        console.log(this.answers);
+    }
+}))
+</script> --}}
 
 
-<!-- 
-
-<x-layout>
-    <body class="w-2/3 mx-auto mt-24">
-        <div x-data="game()">
-            <div class="border-blue-500">
-                <div class="bg-blue-500 rounded-lg min-h-[200px]">Question</div>
-
-                <template x-for='answer in answers'>
-                    <div class="bg-yellow-500 rounded-lg min-h-[100px]">
-                        <button x-text="answer.answer" @click="checkAnswer(answer)">Hi</button>
-                    </div>
-                </template>
-
-                <div class="bg-red-500 rounded-lg min-h-[100px]">Answer 2</div>
-                <div class="bg-green-500 rounded-lg min-h-[100px]">Answer 3</div>
-                <div class="bg-purple-500 rounded-lg min-h-[100px]">Answer 4</div>
-            </div>
-        </div>
-
-    </body> -->
 
 
-    
-<!-- </x-layout>
+
+
+{{-- <script>
+    Alpine.data('game', () => ({
+        cards: [
+            { color: 'blue', selected: false, is_correct: true },
+            { color: 'yellow', selected: false, is_correct: false },
+            { color: 'purple', selected: false, is_correct: false },
+            { color: 'cyan', selected: false, is_correct: false },                
+        ],
+
+        checkAnswer(card) {
+            if (card.is_correct == true) {
+                card.selected = true
+                card.color = 'green'
+            }
+            else {
+                card.color = 'red'
+            }
+        }, 
+    }));
+</script> --}}
