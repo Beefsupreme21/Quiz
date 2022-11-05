@@ -11,12 +11,23 @@ use App\Http\Requests\UpdatePlayRequest;
 
 class PlayController extends Controller
 {
-    public function play(Quiz $quiz)
+    public function play($id)
     {
+        $quiz = Quiz::with(['category', 'category.questions', 'category.questions.answers'])->findOrFail($id);
+
         return view('play', [
             'quiz' => $quiz,
         ]);
     }
+
+    
+    // Route::get('/', function () {
+    //     $categories = Category::with(['questions', 'questions.answers'])->get();
+    
+    //     return view('memory', [
+    //         'categories' => $categories,
+    //     ]);
+    // });
 
     public function show(Category $category)
     {
