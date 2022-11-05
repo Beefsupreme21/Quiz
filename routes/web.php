@@ -26,20 +26,18 @@ use App\Http\Controllers\QuestionController;
 // });
 
 Route::get('/', function () {
-    $categories = Category::all();
+    $categories = Category::with(['questions', 'questions.answers'])->get();
 
     return view('memory', [
         'categories' => $categories,
     ]);
 });
 
+
 Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
 
-
 // Route::get('/play/{$id}', [PlayController::class, 'index']);
-
 // Route::get('/{question}/{id}', [QuestionController::class, 'checkAnswer']);
-
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/create', [CategoryController::class, 'create']);
