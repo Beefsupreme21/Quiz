@@ -1,26 +1,42 @@
-
 <x-layout>
-    <body class="w-2/3 mx-auto mt-24">
-        <div x-data="game()">
-            <div class="border-blue-500">
-                <div class="bg-blue-500 rounded-lg min-h-[200px]">Question</div>
+    <div x-data="game">
+        <button @click="toggle">Toggle Content</button>
+        <div x-show="open">
+            Content...
+        </div>
+        <template x-for="category in categories">
+            <div class="my-8">
+                <div x-text="category.name"></div>
+                <template x-for="question in category.questions">
+                    <div>
+                        <div x-text="question.text"></div>
+                        <template x-for="answer in question.answers">
+                            <div>
+                                <label x-text="answer.text" for="answer.id"></label>
+                                <input 
+                                    type="radio"
+                                    id="answer.id"
+                                    name="answer.id"
+                                >
 
-                {{-- @foreach ($question->answers as $answer)
-                    
-                @endforeach --}}
-
-                <template x-for='answer in answers'>
-                    <div class="bg-yellow-500 rounded-lg min-h-[100px]">
-                        <button x-text="answer.answer" @click="checkAnswer(answer)">Hi</button>
+                            </div>
+                        </template>
                     </div>
                 </template>
-
-                <div class="bg-red-500 rounded-lg min-h-[100px]">Answer 2</div>
-                <div class="bg-green-500 rounded-lg min-h-[100px]">Answer 3</div>
-                <div class="bg-purple-500 rounded-lg min-h-[100px]">Answer 4</div>
             </div>
-        </div>
+        </template>
+    </div>
 
-    </body>
-    
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('game', () => ({
+                open: false,
+                categories: {!! $categories !!},
+
+                toggle() {
+                    this.open = ! this.open
+                },
+            }))
+        })
+    </script>
 </x-layout>

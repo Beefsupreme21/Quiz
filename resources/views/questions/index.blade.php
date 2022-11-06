@@ -4,19 +4,29 @@
             <h1 class="text-4xl mb-4">Questions</h1>
             <a href="/questions/create" class="hover:underline"><button class="bg-gray-900 border border-gray-700 mb-6 px-2 py-1 hover:bg-gray-700 hover:underline">Add New Question</button></a>
         </div>
-        <div class="flex justify-between border-b border-gray-700 text-xl pb-2 mb-2">
-            <p>Question</p>
-            <p>Category</p>
-        </div>
-        @foreach ($questions as $question)
-        <div class="flex justify-between">
-            <a href="/questions/{{ $question->id }}">
-                <p class="hover:underline">{{ $question->text }}</p>
-            </a>
-            <a href="/questions/{{ $question->id }}">
-                <p class="hover:underline">{{ $question->category->name }}</p>
-            </a>
-        </div>
-        @endforeach
+        <table class="table-auto m-auto">
+            <thead> 
+                <tr class="border-b border-gray-600 border-collapse text-left">
+                    <th class="px-4">Question</th>
+                    <th class="px-4">Category</th>
+                </tr>
+            </thead>
+            @foreach ($questions as $question)
+            <tbody>
+                <tr>
+                    <td class="px-4">
+                        <a href="/questions/{{ $question->id }}">
+                            <p class="hover:underline">{{ $question->text }}</p>
+                        </a>
+                    </td>
+                    <td class="px-4">
+                        <a href="/questions/{{ $question->id }}">
+                            <p class="hover:underline">{{ $question->category->name }}</p>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            @endforeach
+        </table>
     </div>
 </x-layout>

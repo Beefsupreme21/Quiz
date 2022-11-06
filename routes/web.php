@@ -28,11 +28,14 @@ use App\Http\Controllers\QuestionController;
 Route::get('/', function () {
     $categories = Category::with(['questions', 'questions.answers'])->get();
 
-    return view('memory', [
+    return view('home', [
         'categories' => $categories,
     ]);
 });
 
+Route::get('/memory', function () {
+    return view('memory');
+});
 
 Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
 

@@ -7,32 +7,61 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
+    <script>
+        .selected {
+            background-color: red;
+        }
+    </script>
     <div x-data="game">
-        <div x-data="{ quiz: <?php echo e($quiz->category); ?>, questions: <?php echo e($quiz->category->questions); ?> }">
-            <div><?php echo e($quiz->category->name); ?></div>
-            <div><?php echo e($quiz->name); ?></div>
+        <div class="w-2/5 m-auto text-center">
+            <div class="my-8 text-xl" x-text="quiz.name"></div>
+            <div class="my-8 text-xl" x-text="quiz.category.name"></div>
+            <template x-for="question in quiz.category.questions">
+                <div>
+                    <div class="my-8 text-xl" x-text="question.text"></div>
+                    <div class="flex-1 grid grid-cols-2 gap-10 mb-16">
+                        <template x-for="answer in question.answers">
+                            <div>
+                                <label 
+                                    x-text="answer.text" 
+                                    for="answer.id" 
+                                    class="py-4 px-8 rounded-lg border border-red-500 cursor-pointer" 
+                                    x-bind:class="{ 'bg-red-700': !answer.id }"  
+                                    x-on:click="addAnswer(question.id, answer.id), answer.id = !answer.id"
+                                    >
+                                    
 
-            <button @click="toggle">Toggle Answers</button>
-
-            <div>
-                <template x-for="question in questions">
-                    <div x-text="question.text" class="h-32 cursor-pointer"></div>
-                </template>
-                <template x-for="answer in question.answers">
-                    <div x-text="answer.text" class="h-32 cursor-pointer"></div>
-                </template>
-            </div>
+                                </label>
+                                <input 
+                                type="radio"
+                                id="answer.id"
+                                name="question.id"
+                            >
+                                
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+            <template x-if="answered.length === quiz.category.questions.length">
+                <button @click="save">Save</button>
+            </template>
         </div>
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('game', () => ({
-                open: false,
-                answers: [],
-     
-                toggle() {
-                    this.open = ! this.open
+                quiz: <?php echo $quiz; ?>,
+                answered: [],
+                selected: false,
+
+                addAnswer(questionId, answerId) {
+                    this.answered.push({
+                        question_id: questionId,
+                        answer_id: answerId,
+                    })
+                    console.log(this.answered)
                 },
             }))
         })
@@ -50,8 +79,6 @@
 
 
 
-     
-    
 
 
 
@@ -64,4 +91,33 @@
 
 
 
-<?php /**PATH C:\xampp\Projects\Quiz\resources\views/play.blade.php ENDPATH**/ ?>
+
+
+
+
+
+
+
+
+
+
+<script>
+    Alpine.data('game', () => ({
+        cards: [
+            { color: 'blue', selected: false, is_correct: true },
+            { color: 'yellow', selected: false, is_correct: false },
+            { color: 'purple', selected: false, is_correct: false },
+            { color: 'cyan', selected: false, is_correct: false },                
+        ],
+
+        checkAnswer(card) {
+            if (card.is_correct == true) {
+                card.selected = true
+                card.color = 'green'
+            }
+            else {
+                card.color = 'red'
+            }
+        }, 
+    }));
+</script><?php /**PATH C:\xampp\Projects\Quiz\resources\views/play.blade.php ENDPATH**/ ?>

@@ -1,55 +1,63 @@
 <x-layout>
+    <script>
+        .selected {
+            background-color: red;
+        }
+    </script>
     <div x-data="game">
-        <div>
-            <div x-text="quiz.category.name"></div>
-            <div x-text="quiz.name"></div>
-            <div>
-                <template x-for="question in quiz.category.questions">
-                    <div>
-                        <div x-text="question.text"></div>
-                        <div class="flex justify-between">
-                            <template x-for="answer in question.answers">
-                                <div class="mb-2">
-                                    <button x-text="answer.text + answer.is_correct" 
-                                            :style="'background: ' + color"
-                                            class="w-64 h-32"
-                                            @click="checkAnswer(answer)"
-                                        >
-                                    </button>
-                                </div>
-                            </template>
-                        </div>
+        <div class="w-2/5 m-auto text-center">
+            <div class="my-8 text-xl" x-text="quiz.name"></div>
+            <div class="my-8 text-xl" x-text="quiz.category.name"></div>
+            <template x-for="question in quiz.category.questions">
+                <div>
+                    <div class="my-8 text-xl" x-text="question.text"></div>
+                    <div class="flex-1 grid grid-cols-2 gap-10 mb-16">
+                        <template x-for="answer in question.answers">
+                            <div>
+                                <label 
+                                    x-text="answer.text" 
+                                    for="answer.id" 
+                                    class="py-4 px-8 rounded-lg border border-red-500 cursor-pointer" 
+                                    x-bind:class="{ 'bg-red-700': !answer.id }"  
+                                    x-on:click="addAnswer(question.id, answer.id), answer.id = !answer.id"
+                                    >
+                                    
 
+                                </label>
+                                <input 
+                                type="radio"
+                                id="answer.id"
+                                name="question.id"
+                            >
+                                {{-- <button x-text="answer.text" 
+                                        x-bind:class="answer.is_correct ? 'bg-green-900' : 'bg-red-700' "
+                                        @click="addAnswer(question.id, answer.id)"
+                                    >
+                                </button> --}}
+                            </div>
+                        </template>
                     </div>
-                </template>
-            </div>
-        </div>
-
-        <button @click="toggle">Toggle Answers</button>
-
-        <div x-show="open">
-            Content...
+                </div>
+            </template>
+            <template x-if="answered.length === quiz.category.questions.length">
+                <button @click="save">Save</button>
+            </template>
         </div>
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('game', () => ({
-                open: false,
                 quiz: {!! $quiz !!},
-                color: 'blue',
+                answered: [],
+                selected: false,
 
-                checkAnswer(answer) {
-                    if (answer.is_correct == 1) {
-                        color = 'green'
-                    }
-                    else {
-                        color = 'red'
-                    }
-                }, 
-     
-                toggle() {
-                    this.open = ! this.open
+                addAnswer(questionId, answerId) {
+                    this.answered.push({
+                        question_id: questionId,
+                        answer_id: answerId,
+                    })
+                    console.log(this.answered)
                 },
             }))
         })
@@ -62,99 +70,39 @@
 
 
 
-
-
-{{-- 
-<div x-data="quiz">
-    <template x-for="question in questions">
-        <p x-text="question.question"></p>
-        <template x-for="answer in question.answers">
-            <button @click="addAnswer(question.id, answer.id)" x-text="answer.text"></button>
-        </template>
-    </template>
-    <template x-if="answers.length === questions.length">
-        <button @click="save">Save</button>
-    </template>
-</div>
-
-<script>
-
-Alpine.data('quiz', () => ({
-    questions: {{ $category->questions }},
-    answers: [],
-
-    addAnswer(questionId, answerId) {
-        this.answers.push({
-            question_id: questionId,
-            answer_id: answerId,
-        })
-    },
-
+{{-- <script>
     save() {
         console.log(this.answers);
     }
-}))
 </script> --}}
 
 
 
+{{-- <template x-for="card in cards">
+    <div :style="'background: ' + card.color" 
+        @click="checkAnswer(card)"
+    >
+    </div>
+</template>  --}}
 
 
 
+{{-- Alpine.data('game', () => ({
+    cards: [
+        { color: 'blue', selected: false, is_correct: true },                
+    ],
+    
+    checkAnswer(card) {
+        if (card.is_correct == true) {
+            card.selected = true
+            card.color = 'green'
+        }
+        else {
+            card.color = 'red'
+        }
+    }, 
+})) --}}
 
-
-
-
-
-
-
-
-
-
-
-
-{{-- <x-layout>
-    <div x-data="game" class="text-white">
-        {{ $category->name }}
-        <div class="px-10 flex items-center justify-center min-h-screen text-black">
-            <div class="flex-1 grid grid-cols-2 gap-10">
-                <template x-for="card in cards">
-                    <div :style="'background: ' + card.color" 
-                        x-text="card.color"
-                        class="h-32 cursor-pointer" 
-                        @click="checkAnswer(card)"
-                    >
-                    </div>
-                </template> 
-            </div>
-        </div>
-    </div> --}}
-
-
-     
-    {{-- <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('game', () => ({
-                cards: [
-                    { color: 'blue', selected: false, is_correct: true },
-                    { color: 'yellow', selected: false, is_correct: false },
-                    { color: 'purple', selected: false, is_correct: false },
-                    { color: 'cyan', selected: false, is_correct: false },                
-                ],
-                
-                checkAnswer(card) {
-                    if (card.is_correct == true) {
-                        card.selected = true
-                        card.color = 'green'
-                    }
-                    else {
-                        card.color = 'red'
-                    }
-                }, 
-            }))
-        });
-    </script>
-</x-layout> --}}
 
 
 
