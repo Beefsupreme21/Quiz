@@ -1,9 +1,5 @@
 <x-layout>
-    <script>
-        .selected {
-            background-color: red;
-        }
-    </script>
+
     <div x-data="game">
         <div class="w-2/5 m-auto text-center">
             <div class="my-8 text-xl" x-text="quiz.name"></div>
@@ -20,15 +16,15 @@
                                     class="py-4 px-8 rounded-lg border border-red-500 cursor-pointer" 
                                     x-bind:class="{ 'bg-red-700': !answer.id }"  
                                     x-on:click="addAnswer(question.id, answer.id), answer.id = !answer.id"
-                                    >
+                                >
                                     
 
                                 </label>
                                 <input 
-                                type="radio"
-                                id="answer.id"
-                                name="question.id"
-                            >
+                                    type="radio"
+                                    id="answer.id"
+                                    name="question.id"
+                                >
                                 {{-- <button x-text="answer.text" 
                                         x-bind:class="answer.is_correct ? 'bg-green-900' : 'bg-red-700' "
                                         @click="addAnswer(question.id, answer.id)"
@@ -62,6 +58,8 @@
             }))
         })
     </script>
+
+
 </x-layout>
 
 
