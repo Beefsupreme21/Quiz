@@ -7,11 +7,6 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <script>
-        .selected {
-            background-color: red;
-        }
-    </script>
     <div x-data="game">
         <div class="w-2/5 m-auto text-center">
             <div class="my-8 text-xl" x-text="quiz.name"></div>
@@ -24,28 +19,28 @@
                             <div>
                                 <label 
                                     x-text="answer.text" 
-                                    for="answer.id" 
+                                    x-bind:for="answer.id" 
                                     class="py-4 px-8 rounded-lg border border-red-500 cursor-pointer" 
-                                    x-bind:class="{ 'bg-red-700': !answer.id }"  
-                                    x-on:click="addAnswer(question.id, answer.id), answer.id = !answer.id"
-                                    >
-                                    
+                                    x-on:click="addAnswer(question.id, answer.id)"
 
+                                >
                                 </label>
                                 <input 
-                                type="radio"
-                                id="answer.id"
-                                name="question.id"
-                            >
+                                    type="radio"
+                                    id="answer.id"
+                                    name="question.id"
+                                    value="answer.text"
+                                >
                                 
                             </div>
                         </template>
                     </div>
+                    
                 </div>
             </template>
-            <template x-if="answered.length === quiz.category.questions.length">
-                <button @click="save">Save</button>
-            </template>
+
+
+            
         </div>
     </div>
 
@@ -54,18 +49,26 @@
             Alpine.data('game', () => ({
                 quiz: <?php echo $quiz; ?>,
                 answered: [],
-                selected: false,
 
                 addAnswer(questionId, answerId) {
-                    this.answered.push({
+                    if (this.answered.includes(questionId, answerId)) {
+                        alert('hey');
+                    }
+                    
+                    else {
+                        this.answered.push({
                         question_id: questionId,
                         answer_id: answerId,
                     })
-                    console.log(this.answered)
+
+                        console.log(this.answered)
+                    }
                 },
             }))
         })
     </script>
+
+
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
@@ -101,23 +104,4 @@
 
 
 
-<script>
-    Alpine.data('game', () => ({
-        cards: [
-            { color: 'blue', selected: false, is_correct: true },
-            { color: 'yellow', selected: false, is_correct: false },
-            { color: 'purple', selected: false, is_correct: false },
-            { color: 'cyan', selected: false, is_correct: false },                
-        ],
-
-        checkAnswer(card) {
-            if (card.is_correct == true) {
-                card.selected = true
-                card.color = 'green'
-            }
-            else {
-                card.color = 'red'
-            }
-        }, 
-    }));
-</script><?php /**PATH C:\xampp\Projects\Quiz\resources\views/play.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\Projects\Quiz\resources\views/play.blade.php ENDPATH**/ ?>

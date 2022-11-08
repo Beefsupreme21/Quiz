@@ -38,6 +38,7 @@ Route::get('/memory', function () {
 });
 
 Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
+Route::post('/quizzes/store', [PlayController::class, 'store']);
 
 // Route::get('/play/{$id}', [PlayController::class, 'index']);
 // Route::get('/{question}/{id}', [QuestionController::class, 'checkAnswer']);

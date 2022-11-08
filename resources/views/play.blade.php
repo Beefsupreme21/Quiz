@@ -1,5 +1,4 @@
 <x-layout>
-
     <div x-data="game">
         <div class="w-2/5 m-auto text-center">
             <div class="my-8 text-xl" x-text="quiz.name"></div>
@@ -12,18 +11,17 @@
                             <div>
                                 <label 
                                     x-text="answer.text" 
-                                    for="answer.id" 
+                                    x-bind:for="answer.id" 
                                     class="py-4 px-8 rounded-lg border border-red-500 cursor-pointer" 
-                                    x-bind:class="{ 'bg-red-700': !answer.id }"  
-                                    x-on:click="addAnswer(question.id, answer.id), answer.id = !answer.id"
-                                >
-                                    
+                                    x-on:click="addAnswer(question.id, answer.id)"
 
+                                >
                                 </label>
                                 <input 
                                     type="radio"
                                     id="answer.id"
                                     name="question.id"
+                                    value="answer.text"
                                 >
                                 {{-- <button x-text="answer.text" 
                                         x-bind:class="answer.is_correct ? 'bg-green-900' : 'bg-red-700' "
@@ -33,11 +31,18 @@
                             </div>
                         </template>
                     </div>
+                    {{-- <div>
+                        <button x-on:click="addAnswer(question.id, answer.id)" class="py-2 px-4 rounded-lg border border-gray-600">
+                            Submit
+                        </button>
+                    </div> --}}
                 </div>
             </template>
-            <template x-if="answered.length === quiz.category.questions.length">
+
+
+            {{-- <template x-if="answered.length === quiz.category.questions.length">
                 <button @click="save">Save</button>
-            </template>
+            </template> --}}
         </div>
     </div>
 
@@ -46,14 +51,20 @@
             Alpine.data('game', () => ({
                 quiz: {!! $quiz !!},
                 answered: [],
-                selected: false,
 
                 addAnswer(questionId, answerId) {
-                    this.answered.push({
+                    if (this.answered.includes(questionId, answerId)) {
+                        alert('hey');
+                    }
+                    
+                    else {
+                        this.answered.push({
                         question_id: questionId,
                         answer_id: answerId,
                     })
-                    console.log(this.answered)
+
+                        console.log(this.answered)
+                    }
                 },
             }))
         })
@@ -113,7 +124,7 @@
 
 
 
-<script>
+{{-- <script>
     Alpine.data('game', () => ({
         cards: [
             { color: 'blue', selected: false, is_correct: true },
@@ -132,4 +143,4 @@
             }
         }, 
     }));
-</script>
+</script> --}}

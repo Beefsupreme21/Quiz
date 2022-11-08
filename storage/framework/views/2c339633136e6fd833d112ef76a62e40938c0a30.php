@@ -16,15 +16,15 @@
             <div class="my-8">
                 <div x-text="category.name"></div>
                 <template x-for="question in category.questions">
-                    <div>
+                    <div class="mt-4">
                         <div x-text="question.text"></div>
                         <template x-for="answer in question.answers">
                             <div>
                                 <label x-text="answer.text" for="answer.id"></label>
                                 <input 
                                     type="radio"
-                                    id="answer.id"
-                                    name="answer.id"
+                                    :id="answer.id"
+                                    :name="question.id"
                                 >
 
                             </div>
