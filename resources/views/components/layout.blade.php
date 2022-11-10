@@ -23,7 +23,7 @@
                         <li class="hover:underline mr-8"><a href="/users">Users</a></li>
                         <li class="hover:underline mr-8"><a href="/quizzes">Quizzes</a></li>
                         <li class="hover:underline"><a href="/play">Play</a></li>
-                        <li class="hover:underline ml-24"><a href="/memory">Memory Game</a></li>
+                        <li class="hover:underline ml-24"><a href="/form">Form</a></li>
 
                     </ul>
                 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Quiz;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
@@ -33,12 +34,49 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/memory', function () {
-    return view('memory');
+// Route::get('/form', function () {
+//     $categories = Category::with(['questions' => function ($query) {
+//         $query->inRandomOrder()->with(['answers' => function ($query) {
+//             $query->inRandomOrder();
+//         }]);
+//     }])->get();
+
+//     return view('form', [
+//         'categories' => $categories,
+//     ]);
+// });
+
+Route::get('/form/{quiz}', function ($id) {
+    $quiz = Quiz::with(['category' => function ($query) {
+        $query->with(['questions' => function ($query) {
+            $query->inRandomOrder()->with(['answers' => function ($query) {
+                $query->inRandomOrder();
+            }]);
+        }]);
+    }])->findOrFail($id);
+
+    return view('form', [
+        'quiz' => $quiz,
+    ]);
 });
 
+
+Route::post('/form', [PlayController::class, 'store']);
+
+
+
+
+
+
+
 Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
-Route::post('/quizzes/store', [PlayController::class, 'store']);
+Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
+
+
+
+
+Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
+// Route::post('/quizzes/store', [PlayController::class, 'store']);
 
 // Route::get('/play/{$id}', [PlayController::class, 'index']);
 // Route::get('/{question}/{id}', [QuestionController::class, 'checkAnswer']);

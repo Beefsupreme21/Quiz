@@ -6,6 +6,7 @@ use App\Models\Play;
 use App\Models\Quiz;
 use App\Models\Category;
 use App\Models\Question;
+use Illuminate\Http\Request;
 use App\Http\Requests\StorePlayRequest;
 use App\Http\Requests\UpdatePlayRequest;
 
@@ -20,38 +21,37 @@ class PlayController extends Controller
         ]);
     }
 
-    
-    // Route::get('/', function () {
-    //     $categories = Category::with(['questions', 'questions.answers'])->get();
-    
-    //     return view('memory', [
-    //         'categories' => $categories,
-    //     ]);
-    // });
-
-    public function show(Category $category)
+    public function store(Request $request)
     {
-        // $category = Category::with('questions.answers')->get();
-        return view('categories.show', [
-            'category' => $category
-        ]);
+        $answers = $request->input();
+
+        dd($answers);
+
+        $questions = $answers->mapWithKeys(function ($answer) {
+            return [$answer->question_id => [
+                        'answer_id' => $answer->id, 
+                        'answer_id' => $answer->text, 
+                    ]
+                ];
+            })->toArray();
+
+        
+
+        $result->questions()->sync($questions);
+
+
+        // $result = $request->validate([
+        //     'answer_id'=> 'required',
+        // ]);
+
+
+
+        // Question::create($question);
+
+        return redirect('/questions');
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
