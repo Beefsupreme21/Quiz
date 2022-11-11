@@ -3,46 +3,24 @@
         <div class="w-2/5 m-auto text-center">
             <div class="my-8 text-xl" x-text="quiz.name"></div>
             <div class="my-8 text-xl" x-text="quiz.category.name"></div>
-            <template x-for="question in quiz.category.questions">
-                <div>
-                    <div class="my-8 text-xl" x-text="question.text"></div>
-                    <div class="flex-1 grid grid-cols-2 gap-10 mb-16">
-                        <template x-for="answer in question.answers">
-                            <div>
-                                <label 
-                                    x-text="answer.text" 
-                                    x-bind:for="answer.id" 
-                                    class="py-4 px-8 rounded-lg border border-red-500 cursor-pointer" 
-                                    x-on:click="addAnswer(question.id, answer.id)"
+            <template x-if="currentQuestionNumber === -1">
+                <button @click="start">Get Started</button>
+            </template>
 
-                                >
-                                </label>
-                                <input 
-                                    type="radio"
-                                    id="answer.id"
-                                    name="question.id"
-                                    value="answer.text"
-                                >
-                                {{-- <button x-text="answer.text" 
-                                        x-bind:class="answer.is_correct ? 'bg-green-900' : 'bg-red-700' "
-                                        @click="addAnswer(question.id, answer.id)"
-                                    >
-                                </button> --}}
-                            </div>
-                        </template>
-                    </div>
-                    {{-- <div>
-                        <button x-on:click="addAnswer(question.id, answer.id)" class="py-2 px-4 rounded-lg border border-gray-600">
-                            Submit
+            <template x-if="currentQuestionNumber >= 0 && currentQuestionNumber < quiz.category.questions.length">
+                <div>
+                    <p x-text="currentQuestion.text"></p>
+                    <template x-for="answer in currentQuestion.answers">
+                        <button @click.prevent="makeSelection(answer)">
+                            <span x-text="answer.text"></span>
                         </button>
-                    </div> --}}
+                    </template>
                 </div>
             </template>
 
-
-            {{-- <template x-if="answered.length === quiz.category.questions.length">
-                <button @click="save">Save</button>
-            </template> --}}
+            <template x-else>
+                Done
+            </template>
         </div>
     </div>
 
@@ -51,20 +29,26 @@
             Alpine.data('game', () => ({
                 quiz: {!! $quiz !!},
                 answered: [],
+                currentQuestionNumber: -1,
 
-                addAnswer(questionId, answerId) {
-                    if (this.answered.includes(questionId, answerId)) {
-                        alert('hey');
-                    }
-                    
-                    else {
-                        this.answered.push({
-                        question_id: questionId,
-                        answer_id: answerId,
-                    })
+                get currentQuestion() {
+                    return this.quiz.category.questions.filter((question, index) => {
+                        if (index == this.currentQuestionNumber) {
+                            return question;
+                        }
+                    })[0];
+                },
 
-                        console.log(this.answered)
+                makeSelection(answer) {
+                    // console.log(this.currentQuestionNumber, this.quiz.category.questions.length);
+                    this.answered.push(answer);
+                    if (this.currentQuestionNumber < this.quiz.category.questions.length) {
+                        this.currentQuestionNumber++;
                     }
+                },
+
+                start() {
+                    this.currentQuestionNumber++;
                 },
             }))
         })

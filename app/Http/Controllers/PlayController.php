@@ -23,9 +23,7 @@ class PlayController extends Controller
 
     public function store(Request $request)
     {
-        $answers = $request->input();
-
-        dd($answers);
+        dd($request);
 
         $questions = $answers->mapWithKeys(function ($answer) {
             return [$answer->question_id => [
@@ -37,12 +35,9 @@ class PlayController extends Controller
 
         
 
-        $result->questions()->sync($questions);
-
-
-        // $result = $request->validate([
-        //     'answer_id'=> 'required',
-        // ]);
+        $result = $request([
+            'answer_id'=> 'required',
+        ]);
 
 
 
