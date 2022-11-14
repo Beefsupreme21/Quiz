@@ -27,11 +27,7 @@ use App\Http\Controllers\QuestionController;
 // });
 
 Route::get('/', function () {
-    $categories = Category::with(['questions', 'questions.answers'])->get();
-
-    return view('home', [
-        'categories' => $categories,
-    ]);
+    return view('home');
 });
 
 // Route::get('/form', function () {
@@ -61,17 +57,12 @@ Route::get('/form/{quiz}', function ($id) {
 });
 
 
-Route::post('/form', [PlayController::class, 'store']);
-
-
-
-
+// Route::post('/form', [PlayController::class, 'store']);
 
 
 
 Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
-Route::get('/quizzes/{quiz}/play', [PlayController::class, 'play']);
-
+Route::post('/quizzes/{quiz}/store', [PlayController::class, 'store']);
 
 
 

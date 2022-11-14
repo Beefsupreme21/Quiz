@@ -14,7 +14,13 @@ class PlayController extends Controller
 {
     public function play($id)
     {
-        $quiz = Quiz::with(['category', 'category.questions', 'category.questions.answers'])->findOrFail($id);
+        $quiz = Quiz::with(['category' => function ($query) {
+            $query->with(['questions' => function ($query) {
+                $query->inRandomOrder()->with(['answers' => function ($query) {
+                    $query->inRandomOrder();
+                }]);
+            }]);
+        }])->findOrFail($id);
 
         return view('play', [
             'quiz' => $quiz,
@@ -24,6 +30,17 @@ class PlayController extends Controller
     public function store(Request $request)
     {
         dd($request);
+
+        $quiz = $request->validate([
+            'name'=> 'required',
+            'category_id'=> 'required',
+            'user_id'=> 1,
+
+        ]);
+
+        Quiz::create($quiz);
+        
+        return redirect('/quizzes');
 
         $questions = $answers->mapWithKeys(function ($answer) {
             return [$answer->question_id => [
